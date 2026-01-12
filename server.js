@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use("/api", emailRoutes); 
+app.use("/api", emailroutes); 
 
 
 // Initialize OpenAI client
@@ -258,3 +258,4 @@ Fără emoticoane. Fără liste cu liniuțe. Ton profesional și concis.
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
