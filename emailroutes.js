@@ -13,6 +13,15 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+transporter.verify((err, success) => {
+    if (err) {
+        console.error("SMTP ERROR:", err);
+    } else {
+        console.log("SMTP READY");
+    }
+});
+
+
 // Pasul 2: ruta pentru trimiterea emailurilor
 router.post("/programare", async (req, res) => {
     const { nume, prenume, email, telefon, mesaj } = req.body;
