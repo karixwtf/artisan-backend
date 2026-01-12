@@ -4,7 +4,7 @@ require("dotenv").config();
 const OpenAI = require("openai");
 
 
-const emailRoutes = require("./emailroutes");
+const emailroutes = require("./emailroutes");
 
 const app = express();   // ✔️ trebuie să fie primul
 const PORT = process.env.PORT || 5000;
@@ -258,4 +258,5 @@ Fără emoticoane. Fără liste cu liniuțe. Ton profesional și concis.
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
