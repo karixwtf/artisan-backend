@@ -24,7 +24,7 @@ router.post("/programare", async (req, res) => {
 
             <p style="font-size:15px; color:#444;">
                 Vă mulțumim pentru solicitarea trimisă! Cererea dumneavoastră de programare a fost înregistrată cu succes.
-                Un membru al echipei noastre vă va contacta în cel mai scurt timp.
+                Un membru al echipei noastre vă va contacta în cel mai scurt timp pentru a stabili data și ora programării.
             </p>
 
             <div style="margin-top:20px; padding:15px; background:#eef2ff; border-left:4px solid #2a3b8f; border-radius:8px;">
