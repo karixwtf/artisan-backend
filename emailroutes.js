@@ -52,6 +52,10 @@ router.post("/programare", async (req, res) => {
     // ---------- HTML EMAIL (ADMIN) ----------
     const adminHTML = `
     <div style="font-family: Arial, sans-serif; background:#ffffff; padding:20px;">
+        <div style="text-align: center;">
+            <img src="https://romaniatravelguide.ro/logo.png" alt="Artisan Stoma" 
+                 style="width: 160px; margin-bottom: 20px;" />
+        </div>
         <h2 style="color:#2a3b8f;">Programare nouă – Website</h2>
 
         <p style="font-size:15px; color:#333;">A fost trimisă o programare nouă:</p>
