@@ -15,7 +15,10 @@ router.post("/programare", async (req, res) => {
     const clientHTML = `
     <div style="font-family: Arial, sans-serif; background:#f6f7f9; padding:30px;">
         <div style="max-width:600px; margin:0 auto; background:white; padding:25px; border-radius:12px; box-shadow:0 3px 10px rgba(0,0,0,0.05);">
-            
+        <div style="text-align: center;">
+            <img src="https://romaniatravelguide.ro/logo.png" alt="Artisan Stoma" 
+                 style="width: 160px; margin-bottom: 20px;" />
+        </div>
             <h2 style="color:#2a3b8f; margin-top:0;">Confirmare programare – Artisan Stoma</h2>
 
             <p style="font-size:16px; color:#333;">
