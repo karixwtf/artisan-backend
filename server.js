@@ -30,6 +30,68 @@ app.post("/api/chat", async (req, res) => {
       return res.status(400).json({ error: "No message provided" });
     }
 
+    // Detect if user wants an appointment
+if (message.toLowerCase().includes("programare") || 
+    message.toLowerCase().includes("vreau sa ma programez") ||
+    message.toLowerCase().includes("as dori o programare")) {
+
+  const session = getSession("default"); // you can replace this with userID if you have authentication
+
+  // Step 1: Ask for nume
+  if (session.step === 0) {
+    session.step = 1;
+    return res.json({ response: "Desigur, vă pot ajuta cu programarea. Vă rog să îmi spuneți numele dumneavoastră." });
+  }
+
+  // Step 2: Save nume, ask prenume
+  if (session.step === 1) {
+    session.data.nume = message;
+    session.step = 2;
+    return res.json({ response: "Vă rog să îmi spuneți prenumele dumneavoastră." });
+  }
+
+  // Step 3: Save prenume, ask email
+  if (session.step === 2) {
+    session.data.prenume = message;
+    session.step = 3;
+    return res.json({ response: "Vă rog să îmi spuneți adresa de email." });
+  }
+
+  // Step 4: Save email, ask telefon
+  if (session.step === 3) {
+    session.data.email = message;
+    session.step = 4;
+    return res.json({ response: "Vă rog să îmi spuneți numărul de telefon." });
+  }
+
+  // Step 5: Save telefon, ask optional message
+  if (session.step === 4) {
+    session.data.telefon = message;
+    session.step = 5;
+    return res.json({ response: "Doriți să adăugați un mesaj opțional pentru medic?" });
+  }
+
+  // Step 6: Save message and submit appointment
+  if (session.step === 5) {
+    session.data.mesaj = message === "nu" || message === "nu doresc" ? "" : message;
+
+    // Send data to appointment endpoint
+    const appointmentResponse = await fetch("https://website-tau.ro/api/programare", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(session.data)
+    });
+
+    // Reset session
+    sessions["default"] = { step: 0, data: {} };
+
+    return res.json({
+      response: "Vă mulțumim! Cererea de programare a fost trimisă. Veți primi un email de confirmare în cel mai scurt timp."
+    });
+  }
+}
+
+    
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       max_completion_tokens: 300,
@@ -255,8 +317,23 @@ Fără emoticoane. Fără liste cu liniuțe. Ton profesional și concis.
   }
 });
 
+// Temporary in-memory session store
+const sessions = {};
+
+function getSession(id) {
+  if (!sessions[id]) {
+    sessions[id] = {
+      step: 0,
+      data: {}
+    };
+  }
+  return sessions[id];
+}
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
