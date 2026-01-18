@@ -110,7 +110,7 @@ const adminHTML = `
   const fromAdmin = `Programări Website <${fromEmail}>`;
 
   // ✅ subject-uri unice => Gmail nu mai colapsează mailurile ca „text citat”
-  const clientSubject = `Confirmare programare – Artisan Stoma`;
+  const clientSubject = `Programare – Artisan Stoma`;
   const adminSubject = `Programare nouă – ${N} ${P} – ${stamp} – ${ref.slice(0, 6)}`;
 
   try {
