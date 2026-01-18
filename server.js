@@ -241,7 +241,7 @@ Reguli speciale:
 - Nu pune diagnostic medical, ci doar explicații generale.
 - La finalul oricărui răspuns legat de durere sau simptome, adaugă obligatoriu:
 
-„Vă putem ajuta cu problema dumneavoastră dacă ne contactați sau programați o vizită la cabinet.”
+„Vă putem ajuta cu problema dumneavoastră dacă ne contactați și programați o vizită la cabinet.”
 
 Fără emoticoane. Fără liste cu liniuțe. Ton profesional și concis.
 
@@ -268,4 +268,5 @@ Fără emoticoane. Fără liste cu liniuțe. Ton profesional și concis.
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
