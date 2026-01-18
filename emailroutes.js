@@ -73,7 +73,7 @@ router.post("/programare", async (req, res) => {
 const adminHTML = `
   <div style="font-family: Arial, sans-serif; background:#ffffff; padding:20px;">
     <div style="text-align: center;">
-      <img src="https://romaniatravelguide.ro/logocabinet.png" alt="Artisan Stoma"
+      <img src="https://artisanstoma.ro/logocabinet.png" alt="Artisan Stoma"
            style="width: 160px; margin-bottom: 20px;" />
     </div>
 
