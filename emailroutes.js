@@ -4,6 +4,9 @@ const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Curăță spații / newline-uri care pot strica layout-ul în email
+const clean = (v) => String(v ?? "").replace(/\r?\n/g, " ").trim();
+
 router.post("/programare", async (req, res) => {
   const { nume, prenume, email, telefon, mesaj } = req.body;
 
@@ -11,15 +14,15 @@ router.post("/programare", async (req, res) => {
     return res.status(400).json({ error: "Lipsesc câteva câmpuri obligatorii" });
   }
 
-  // ---------- INPUT (fără clean) ----------
-  const N = nume;
-  const P = prenume;
-  const E = email;
-  const T = telefon;
-  const M = mesaj;
+  // ---------- NORMALIZARE INPUT ----------
+  const N = clean(nume);
+  const P = clean(prenume);
+  const E = clean(email);
+  const T = clean(telefon);
+  const M = clean(mesaj);
 
-  // link tel: (fără spații) – păstrăm doar pentru link
-  const telefonLink = String(T || "").replace(/\s+/g, "");
+  // link tel: (fără spații)
+  const telefonLink = T.replace(/\s+/g, "");
 
   // ---------- HTML EMAIL (CLIENT) ----------
   const clientHTML = `
@@ -60,6 +63,7 @@ router.post("/programare", async (req, res) => {
   `;
 
   // ---------- HTML EMAIL (ADMIN) ----------
+  // ✅ Butonul + mesajul sunt acum ÎN CHENAR, imediat după date.
   const adminHTML = `
   <div style="font-family: Arial, sans-serif; background:#ffffff; padding:20px;">
     <div style="text-align: center;">
@@ -104,7 +108,7 @@ router.post("/programare", async (req, res) => {
         subject: "Confirmare programare – Artisan Stoma",
         html: clientHTML,
         text: `Bună ziua, ${N} ${P}, Vă mulțumim pentru solicitare!`,
-        replyTo: fromEmail,
+        replyTo: fromEmail, // ✅ corect (camelCase)
       }),
 
       resend.emails.send({
@@ -117,7 +121,7 @@ Nume: ${N} ${P}
 Email: ${E}
 Telefon: ${T}
 Mesaj: ${M || "-"}`,
-        replyTo: E,
+        replyTo: E, // ✅ corect (camelCase)
       }),
     ]);
 
