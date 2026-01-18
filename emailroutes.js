@@ -70,7 +70,7 @@ router.post("/programare", async (req, res) => {
 
   // ---------- HTML EMAIL (ADMIN) ----------
   // ✅ Tot ce e important e în chenar + buton în chenar.
-  const adminHTML = `
+const adminHTML = `
   <div style="font-family: Arial, sans-serif; background:#ffffff; padding:20px;">
     <div style="text-align: center;">
       <img src="https://romaniatravelguide.ro/logocabinet.png" alt="Artisan Stoma"
@@ -96,17 +96,14 @@ router.post("/programare", async (req, res) => {
           Sună pacientul
         </a>
       </div>
-
-      <p style="margin:14px 0 0 0; font-size:12px; color:#666; text-align:center;">
-        Ref: ${ref}
-      </p>
     </div>
 
     <p style="margin-top:20px; font-size:13px; color:#777;">
       Trimiteți-i clientului un răspuns cât mai rapid.
     </p>
   </div>
-  `;
+`;
+
 
   const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER;
   const fromClient = `Artisan Stoma <${fromEmail}>`;
