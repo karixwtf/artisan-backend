@@ -36,7 +36,7 @@ router.post("/programare", async (req, res) => {
       <h2 style="color:#2a3b8f; margin-top:0;">Confirmare programare – Artisan Stoma</h2>
 
       <p style="font-size:16px; color:#333; margin:0 0 12px 0;">
-        Bună ziua, <strong>${N} ${P}</strong>,
+        Bună ziua <strong>${N} ${P}</strong>,
       </p>
 
       <p style="font-size:15px; color:#444; margin:0 0 16px 0;">
@@ -63,6 +63,7 @@ router.post("/programare", async (req, res) => {
   `;
 
   // ---------- HTML EMAIL (ADMIN) ----------
+  // ✅ Butonul + mesajul sunt acum ÎN CHENAR, imediat după date.
   const adminHTML = `
   <div style="font-family: Arial, sans-serif; background:#ffffff; padding:20px;">
     <div style="text-align: center;">
@@ -80,13 +81,13 @@ router.post("/programare", async (req, res) => {
         <strong>Telefon:</strong> ${T}<br>
         <strong>Mesaj:</strong> ${M || "–"}
       </p>
-    </div>
 
-    <div style="margin-top:18px; text-align:center;">
-      <a href="tel:${telefonLink}"
-         style="display:inline-block; padding:12px 22px; background-color:#2a3b8f; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:bold; font-size:15px;">
-        Sună pacientul
-      </a>
+      <div style="margin-top:14px; text-align:center;">
+        <a href="tel:${telefonLink}"
+           style="display:inline-block; padding:12px 22px; background-color:#2a3b8f; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:bold; font-size:15px;">
+          Sună pacientul
+        </a>
+      </div>
     </div>
 
     <p style="margin-top:20px; font-size:13px; color:#777;">
@@ -95,12 +96,11 @@ router.post("/programare", async (req, res) => {
   </div>
   `;
 
-  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER; // fallback dacă ai deja
+  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER;
   const fromClient = `Artisan Stoma <${fromEmail}>`;
   const fromAdmin = `Programări Website <${fromEmail}>`;
 
   try {
-    // Trimite în paralel (mai rapid decât unul după altul)
     await Promise.all([
       resend.emails.send({
         from: fromClient,
@@ -108,7 +108,7 @@ router.post("/programare", async (req, res) => {
         subject: "Confirmare programare – Artisan Stoma",
         html: clientHTML,
         text: `Bună ziua, ${N} ${P}, Vă mulțumim pentru solicitare!`,
-        reply_to: fromEmail, // clientul răspunde către clinică
+        replyTo: fromEmail, // ✅ corect (camelCase)
       }),
 
       resend.emails.send({
@@ -121,7 +121,7 @@ Nume: ${N} ${P}
 Email: ${E}
 Telefon: ${T}
 Mesaj: ${M || "-"}`,
-        reply_to: E, // ca să poți răspunde direct clientului
+        replyTo: E, // ✅ corect (camelCase)
       }),
     ]);
 
