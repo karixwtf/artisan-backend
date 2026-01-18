@@ -73,10 +73,10 @@ router.post("/programare", async (req, res) => {
 
     <div style="padding:15px; background:#f2f4f7; border-radius:10px;">
       <p style="margin:0; font-size:15px; color:#222; line-height:1.6;">
-        <strong>Nume:</strong> ${N} ${P}<br>
-        <strong>Email:</strong> ${E}<br>
-        <strong>Telefon:</strong> ${T}<br>
-        <strong>Mesaj:</strong> ${M || "–"}
+        <strong>Nume:</strong> <br>
+        <strong>Email:</strong> <br>
+        <strong>Telefon:</strong> <br>
+        <strong>Mesaj:</strong> 
       </p>
 
       <div style="margin-top:14px; text-align:center;">
