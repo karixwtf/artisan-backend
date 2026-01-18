@@ -317,7 +317,7 @@ Fără emoticoane. Fără liste cu liniuțe. Ton profesional și concis.
   }
 });
 
-// Temporary in-memory session store
+/*// Temporary in-memory session store
 const sessions = {};
 
 function getSession(id) {
@@ -328,12 +328,13 @@ function getSession(id) {
     };
   }
   return sessions[id];
-}
+}*/
 
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
