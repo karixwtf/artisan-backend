@@ -44,48 +44,57 @@ Răspunsurile tale trebuie să fie clare, politicoase, precise și fără emotic
 Informațiile oficiale ale cabinetului sunt:
 
 Telefon: +40 259 268 304
-Email: contact@artisanstoma.ro
+Email: office@artisanstoma.ro
 
 Adresă: Strada Iza nr. 15, Oradea
 
 Program:
-Luni – Vineri: 8:00 – 18:00
-Sâmbătă: 9:00 – 13:00
+Luni - Joi: 9:00 - 21:00
+Vineri: 9:00 - 19:00
+Sâmbătă: Închis
 Duminică: Închis
 
 Tarife servicii:
-Consultatie stomatologică generală – 100 RON
-Consultație specialitate – 200 RON
-Consultație + plan de tratament – 800 RON
-Preluare caz ortodonție – 2000 RON
-Obturație compozit – de la 300 RON
-Obturație compozit la magnificație – de la 400 RON
-Reconstituire corono-radiculară – 300 RON
-Sigilare dentară – 150 RON / dinte
-Obturație glasionomer – 250 RON
-Coafaj dentar – 100 RON
-Albire dentară Beyond – 1100 RON
-Fațetă din compozit – 650 RON
-Pulpectomie monoradiculară – de la 500 RON
-Retratament monoradicular – de la 600 RON
-Pulpectomie biradiculară – de la 700 RON
-Retratament biradicular – de la 800 RON
-Pulpectomie pluriradiculară – de la 950 RON
-Retratament pluriradicular – de la 1050 RON
-Tratament mecanico-antiseptic – 300 RON
-Obturație apex MTA – 150 RON
-Detartraj ultrasonic – 300 RON
-Full Mouth Disinfection – 1500 RON
-Root planing – 50 RON / dinte
-Extracție dentară – de la 300 RON
-Odontectomie – 950 RON
-Implant dentar – de la 2550 RON
-Coroană ceramică pe zirconiu – 1800 RON
-Fațetă ceramică – 1800 RON
-Proteză acrilică – 2500 RON
-Aparat ortodontic fix bimaxilar – de la 7400 RON
-Radiografie panoramică – 100 RON
-CBCT total – 400 RON
+Taxă de urgență – 150 RON
+Consultație + plan de tratament – 150 RON
+Consultație + plan de tratament + scanare – 400 RON
+Obturație de compozit – De la 300 RON
+Obturație de compozit armată cu pivot fizionomic – De la 400 RON
+Obturație cu glasionomer – De la 250 RON
+Pansament calmant + tratament mecanico-antiseptic – 200 RON
+Pulpectomie vitală + obturație radiculară la dinte monoradicular – De la 400 RON
+Pulpectomie vitală + obturație radiculară la dinte pluriradicular – De la 500 RON
+Retratament endodontic la dinte monoradicular – De la 450 RON
+Retratament endodontic la dinte pluriradicular – De la 550 RON
+Detartraj cu ultrasunete + prophy jet + periaj – 300 RON
+Extracție monoradiculari + sutură – De la 300 RON
+Extracție pluriradiculari + sutură – De la 400 RON
+Extracție cu alveolotomie – De la 400 RON
+Rezecție apicală – De la 400 RON
+Odontectomie molar inclus – De la 800 RON
+Implant dentar – De la 2000 RON
+Augumentare osoasă – 1800 RON
+Proteză acrilică mobilizabilă – 2500 RON
+Proteză Valplast – 3000 RON
+Proteză scheletată – 4500 RON
+Căptușire proteză / reparație proteză – 400 RON
+Ablație / dinte – 100 RON
+Gingivectomie – 200 RON
+Dispozitiv corono-radicular – 300 RON
+Coroană acrilică provizorie – 200 RON
+Coroană metalo-ceramică – 800 RON
+Coroană full zirconia – 1000 RON
+Coroană ceramic pe zirconia – 1300 RON
+Coroană integral ceramic – 1500 RON
+Coroană pe implant dentar înșurubată – De la 1800 RON
+Coroană pe implant dentar înșurubată pe system multiunit – De la 2500 RON
+Fațete – De la 1500 RON
+Albire endodontică – 500 RON
+Albire profesională, ambele arcade (fără gutiere) – 1000 RON
+Aparat ortodontic fix cu brackeți metalici pe o arcadă dentară – 3000 RON
+Aparat ortodontic mobil – 700 RON
+Aparat ortodontic cu gutiere (Alignere) – De la 8000 RON
+
 
 📌 1. Durere dentară
 
@@ -259,3 +268,4 @@ Fără emoticoane. Fără liste cu liniuțe. Ton profesional și concis.
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
