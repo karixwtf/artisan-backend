@@ -4,10 +4,6 @@ const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-
-
-
-
 router.post("/programare", async (req, res) => {
   const { nume, prenume, email, telefon, mesaj } = req.body;
 
@@ -15,11 +11,15 @@ router.post("/programare", async (req, res) => {
     return res.status(400).json({ error: "Lipsesc câteva câmpuri obligatorii" });
   }
 
+  // ---------- INPUT (fără clean) ----------
+  const N = nume;
+  const P = prenume;
+  const E = email;
+  const T = telefon;
+  const M = mesaj;
 
-
-
-  // link tel: (fără spații)
-  const telefonLink = T.replace(/\s+/g, "");
+  // link tel: (fără spații) – păstrăm doar pentru link
+  const telefonLink = String(T || "").replace(/\s+/g, "");
 
   // ---------- HTML EMAIL (CLIENT) ----------
   const clientHTML = `
@@ -60,7 +60,6 @@ router.post("/programare", async (req, res) => {
   `;
 
   // ---------- HTML EMAIL (ADMIN) ----------
-  // ✅ Butonul + mesajul sunt acum ÎN CHENAR, imediat după date.
   const adminHTML = `
   <div style="font-family: Arial, sans-serif; background:#ffffff; padding:20px;">
     <div style="text-align: center;">
@@ -73,10 +72,10 @@ router.post("/programare", async (req, res) => {
 
     <div style="padding:15px; background:#f2f4f7; border-radius:10px;">
       <p style="margin:0; font-size:15px; color:#222; line-height:1.6;">
-        <strong>Nume:</strong> <br>
-        <strong>Email:</strong> <br>
-        <strong>Telefon:</strong> <br>
-        <strong>Mesaj:</strong> 
+        <strong>Nume:</strong> ${N} ${P}<br>
+        <strong>Email:</strong> ${E}<br>
+        <strong>Telefon:</strong> ${T}<br>
+        <strong>Mesaj:</strong> ${M || "–"}
       </p>
 
       <div style="margin-top:14px; text-align:center;">
@@ -105,7 +104,7 @@ router.post("/programare", async (req, res) => {
         subject: "Confirmare programare – Artisan Stoma",
         html: clientHTML,
         text: `Bună ziua, ${N} ${P}, Vă mulțumim pentru solicitare!`,
-        replyTo: fromEmail, // ✅ corect (camelCase)
+        replyTo: fromEmail,
       }),
 
       resend.emails.send({
@@ -118,7 +117,7 @@ Nume: ${N} ${P}
 Email: ${E}
 Telefon: ${T}
 Mesaj: ${M || "-"}`,
-        replyTo: E, // ✅ corect (camelCase)
+        replyTo: E,
       }),
     ]);
 
