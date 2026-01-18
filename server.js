@@ -44,7 +44,7 @@ Răspunsurile tale trebuie să fie clare, politicoase, precise și fără emotic
 Informațiile oficiale ale cabinetului sunt:
 
 Telefon: +40 259 268 304
-Email: office@artisanstoma.ro
+Email: artisanstoma@gmail.com
 
 Adresă: Strada Iza nr. 15, Oradea
 
@@ -270,6 +270,7 @@ Daca clientul cere o programare, ii dai numarul de telefonul si  emailul. ( Desi
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
