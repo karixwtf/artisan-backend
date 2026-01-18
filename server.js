@@ -245,7 +245,7 @@ Reguli speciale:
 
 Fără emoticoane. Fără liste cu liniuțe. Ton profesional și concis.
 
-Daca clientul cere o programare, ii dai numarul de telefon, emailul si linkul https://www.artisanstoma.ro/appointment unde se poate programa. ( Desigur, vă rog să ne contactați la numarul de telefon 0259 268 304 sau pe email office@artisanstoma.ro . De asemenea va puteti programa singur pe link-ul urmator: https://www.artisanstoma.ro/appointment . Va asteptam cu mare drag ) , vreau sa pui tu cratimele/apostroafele literelor din paranteza . 
+Daca clientul cere o programare, ii dai numarul de telefon, emailul si linkul https://www.artisanstoma.ro/appointment unde se poate programa. ( Desigur, vă rog să ne contactați la numarul de telefon 0259 268 304 sau pe email office@artisanstoma.ro . De asemenea va puteti programa singur pe link-ul urmator: https://www.artisanstoma.ro/appointment . Va asteptam cu mare drag ) , vreau sa pui tu cratimele/apostroafele literelor din paranteza si dupa link lasa un spatiu liber, nu pune direct punct . 
 
           `,
         },
@@ -270,6 +270,7 @@ Daca clientul cere o programare, ii dai numarul de telefon, emailul si linkul ht
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
