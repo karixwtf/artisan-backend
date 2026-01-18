@@ -6,7 +6,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 console.log("✅ EMAILROUTES LOADED v2026-01-18-1525");
 
-
 // Curăță spații / newline-uri care pot strica layout-ul în email
 const clean = (v) => String(v ?? "").replace(/\r?\n/g, " ").trim();
 
@@ -26,6 +25,10 @@ router.post("/programare", async (req, res) => {
 
   // link tel: (fără spații)
   const telefonLink = String(T || "").replace(/\s+/g, "");
+
+  // ✅ ref unic (ajută să nu mai bage Gmail în același thread / „text citat”)
+  const ref = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const stamp = new Date().toISOString().slice(0, 19).replace("T", " ");
 
   // ---------- HTML EMAIL (CLIENT) ----------
   const clientHTML = `
@@ -66,7 +69,7 @@ router.post("/programare", async (req, res) => {
   `;
 
   // ---------- HTML EMAIL (ADMIN) ----------
-  // ✅ Butonul + mesajul sunt acum ÎN CHENAR, imediat după date.
+  // ✅ Tot ce e important e în chenar + buton în chenar.
   const adminHTML = `
   <div style="font-family: Arial, sans-serif; background:#ffffff; padding:20px;">
     <div style="text-align: center;">
@@ -75,7 +78,9 @@ router.post("/programare", async (req, res) => {
     </div>
 
     <h2 style="color:#2a3b8f; margin:0 0 10px 0;">Programare nouă – Website</h2>
-    <p style="font-size:15px; color:#333; margin:0 0 14px 0;">A fost trimisă o programare nouă:</p>
+    <p style="font-size:15px; color:#333; margin:0 0 14px 0;">
+      A fost trimisă o programare nouă:
+    </p>
 
     <div style="padding:15px; background:#f2f4f7; border-radius:10px;">
       <p style="margin:0; font-size:15px; color:#222; line-height:1.6;">
@@ -91,6 +96,10 @@ router.post("/programare", async (req, res) => {
           Sună pacientul
         </a>
       </div>
+
+      <p style="margin:14px 0 0 0; font-size:12px; color:#666; text-align:center;">
+        Ref: ${ref}
+      </p>
     </div>
 
     <p style="margin-top:20px; font-size:13px; color:#777;">
@@ -103,28 +112,39 @@ router.post("/programare", async (req, res) => {
   const fromClient = `Artisan Stoma <${fromEmail}>`;
   const fromAdmin = `Programări Website <${fromEmail}>`;
 
+  // ✅ subject-uri unice => Gmail nu mai colapsează mailurile ca „text citat”
+  const clientSubject = `Confirmare programare – Artisan Stoma`;
+  const adminSubject = `Programare nouă – ${N} ${P} – ${stamp} – ${ref.slice(0, 6)}`;
+
   try {
     await Promise.all([
       resend.emails.send({
         from: fromClient,
         to: E,
-        subject: "Confirmare programare – Artisan Stoma",
+        subject: clientSubject,
         html: clientHTML,
         text: `Bună ziua, ${N} ${P}, Vă mulțumim pentru solicitare!`,
-        replyTo: fromEmail, // ✅ corect (camelCase)
+        replyTo: fromEmail,
+        headers: {
+          "X-Entity-Ref-ID": ref,
+        },
       }),
 
       resend.emails.send({
         from: fromAdmin,
         to: process.env.ADMIN_EMAIL,
-        subject: "Programare nouă – Artisan Stoma",
+        subject: adminSubject,
         html: adminHTML,
         text: `Programare nouă:
+Ref: ${ref}
 Nume: ${N} ${P}
 Email: ${E}
 Telefon: ${T}
 Mesaj: ${M || "-"}`,
-        replyTo: E, // ✅ corect (camelCase)
+        replyTo: E,
+        headers: {
+          "X-Entity-Ref-ID": ref,
+        },
       }),
     ]);
 
