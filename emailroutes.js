@@ -4,6 +4,9 @@ const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+console.log("✅ EMAILROUTES LOADED v2026-01-18-1525");
+
+
 // Curăță spații / newline-uri care pot strica layout-ul în email
 const clean = (v) => String(v ?? "").replace(/\r?\n/g, " ").trim();
 
@@ -22,7 +25,7 @@ router.post("/programare", async (req, res) => {
   const M = clean(mesaj);
 
   // link tel: (fără spații)
-  const telefonLink = T.replace(/\s+/g, "");
+  const telefonLink = String(T || "").replace(/\s+/g, "");
 
   // ---------- HTML EMAIL (CLIENT) ----------
   const clientHTML = `
