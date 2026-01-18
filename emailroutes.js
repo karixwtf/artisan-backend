@@ -39,7 +39,7 @@ router.post("/programare", async (req, res) => {
              style="width: 160px; margin-bottom: 20px;" />
       </div>
 
-      <h2 style="color:#2a3b8f; margin-top:0;">Confirmare programare – Artisan Stoma</h2>
+      <h2 style="color:#2a3b8f; margin-top:0;">Solicitare programare – Artisan Stoma</h2>
 
       <p style="font-size:16px; color:#333; margin:0 0 12px 0;">
         Bună ziua <strong>${N} ${P}</strong>,
