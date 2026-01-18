@@ -5,7 +5,14 @@ const { Resend } = require("resend");
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Curăță spații / newline-uri care pot strica layout-ul în email
-const clean = (v) => String(v ?? "").replace(/\r?\n/g, " ").trim();
+const clean = (v) =>
+  String(v ?? "")
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")   // zero-width
+    .replace(/\u00A0/g, " ")                // NBSP -> space normal
+    .replace(/\r?\n/g, " ")                 // newline -> space
+    .replace(/\s+/g, " ")                   // comprima spațiile multiple
+    .trim();
+
 
 router.post("/programare", async (req, res) => {
   const { nume, prenume, email, telefon, mesaj } = req.body;
