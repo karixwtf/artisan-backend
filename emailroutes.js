@@ -52,7 +52,7 @@ router.post("/programare", async (req, res) => {
 
       <div style="margin-top:20px; padding:15px; background:#eef2ff; border-left:4px solid #2a3b8f; border-radius:8px;">
         <p style="margin:0; font-size:15px; color:#222; line-height:1.5;">
-          <strong>Detalii programare trimise:</strong><br>
+          <strong>Detalii programare:</strong><br>
           • Nume: ${N} ${P}<br>
           • Email: ${E}<br>
           • Telefon: ${T}<br>
