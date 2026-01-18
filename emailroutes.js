@@ -1,27 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-// ---------- SMTP TRANSPORT ----------
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false, // ✅ acceptă self-signed
-    servername: process.env.SMTP_HOST,
-  },
-  connectionTimeout: 20000,
-  greetingTimeout: 20000,
-  socketTimeout: 20000,
-});
-
-
-
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Curăță spații / newline-uri care pot strica layout-ul în email
 const clean = (v) => String(v ?? "").replace(/\r?\n/g, " ").trim();
@@ -114,37 +95,39 @@ router.post("/programare", async (req, res) => {
   </div>
   `;
 
+  const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER; // fallback dacă ai deja
+  const fromClient = `Artisan Stoma <${fromEmail}>`;
+  const fromAdmin = `Programări Website <${fromEmail}>`;
+
   try {
-    // opțional la testare:
-    // await transporter.verify();
+    // Trimite în paralel (mai rapid decât unul după altul)
+    await Promise.all([
+      resend.emails.send({
+        from: fromClient,
+        to: E,
+        subject: "Confirmare programare – Artisan Stoma",
+        html: clientHTML,
+        text: `Bună ziua, ${N} ${P}, Vă mulțumim pentru solicitare!`,
+        reply_to: fromEmail, // clientul răspunde către clinică
+      }),
 
-    // ---------- EMAIL CLIENT ----------
-    await transporter.sendMail({
-      from: `"Artisan Stoma" <${process.env.SMTP_USER}>`,
-      to: E,
-      subject: "Confirmare programare – Artisan Stoma",
-      html: clientHTML,
-      text: `Bună ziua, ${N} ${P}, Vă mulțumim pentru solicitare!`,
-      replyTo: process.env.SMTP_USER,
-    });
-
-    // ---------- EMAIL ADMIN ----------
-    await transporter.sendMail({
-      from: `"Programări Website" <${process.env.SMTP_USER}>`,
-      to: process.env.ADMIN_EMAIL,
-      subject: "Programare nouă – Artisan Stoma",
-      html: adminHTML,
-      text: `Programare nouă:
+      resend.emails.send({
+        from: fromAdmin,
+        to: process.env.ADMIN_EMAIL,
+        subject: "Programare nouă – Artisan Stoma",
+        html: adminHTML,
+        text: `Programare nouă:
 Nume: ${N} ${P}
 Email: ${E}
 Telefon: ${T}
 Mesaj: ${M || "-"}`,
-      replyTo: E, // răspunzi direct clientului
-    });
+        reply_to: E, // ca să poți răspunde direct clientului
+      }),
+    ]);
 
     return res.json({ success: true });
   } catch (err) {
-    console.error("Eroare SMTP:", err);
+    console.error("Eroare Resend:", err);
     return res.status(500).json({ error: "Eroare la trimiterea emailurilor" });
   }
 });
